@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Clean
+rm -r dist/
+mkdir dist/ tmp/
+
+# Compile ES2015 -> ES5
+./node_modules/.bin/babel --blacklist useStrict --out-file tmp/kudu-client-angular.js src/
+
+# Wrap output in IIFE
+echo -e '(function () {\n\n"use strict";\n' > tmp/out.js
+cat tmp/kudu-client-angular.js >> tmp/out.js
+echo -e '\n}());' >> tmp/out.js
+mv tmp/out.js dist/kudu-client-angular.js
+
+# Cleanup
+rm -r tmp/

@@ -1,0 +1,10 @@
+{
+  "name": "kudu-client-angular",
+  "version": "0.1.0",
+  "scripts": {
+    "compile": "./bin/compile"
+  },
+  "devDependencies": {
+    "babel": "^4.0.0"
+  }
+}
