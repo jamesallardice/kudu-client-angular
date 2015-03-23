@@ -1,16 +1,20 @@
 #!/usr/bin/env bash
 
+shopt -s extglob
+
 # Clean
 rm -r dist/
 mkdir dist/ tmp/
 
-# Compile ES2015 -> ES5
-./node_modules/.bin/babel --blacklist useStrict --out-file tmp/kudu-client-angular.js src/
+# Compile ES2015 -> ES5. The main kudu-client-angular.es6 file has to come first.
+./node_modules/.bin/babel --blacklist useStrict --out-file tmp/main.js src/kudu-client-angular.es6
+./node_modules/.bin/babel --blacklist useStrict --out-file tmp/kudu-client-angular.js src/**/!(kudu-client-angular).es6
 
 # Wrap output in IIFE
-echo -e '(function () {\n\n"use strict";\n' > tmp/out.js
+echo -e '(function ( window, angular, undefined ) {\n\n"use strict";\n' > tmp/out.js
+cat tmp/main.js >> tmp/out.js
 cat tmp/kudu-client-angular.js >> tmp/out.js
-echo -e '\n}());' >> tmp/out.js
+echo -e '\n}(window, window.angular));' >> tmp/out.js
 mv tmp/out.js dist/kudu-client-angular.js
 
 # Cleanup

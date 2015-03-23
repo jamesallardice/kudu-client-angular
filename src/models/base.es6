@@ -6,5 +6,5 @@ angular.module('kudu')
     constructor() {}
   }
 
-  return BaseService;
+  return BaseModel;
 });
