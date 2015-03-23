@@ -3,6 +3,9 @@ angular.module('kudu')
 
   let injector;
 
+  // Take an Angular $injector service instance and make it available to the
+  // kudu service. This is needed to dynamically generate services and make
+  // them available to the consumer application.
   this.setInjector = ( $injector ) => {
     injector = $injector;
   };
@@ -14,10 +17,14 @@ angular.module('kudu')
 
     ( Model, ModelCache ) => ( {
 
+      // A utility wrapper around KuduModelCache#get which allows consumers to
+      // only inject the kudu service itself rather than the model cache too.
       getModel( name ) {
         return ModelCache.get[ name ];
       },
 
+      // Create a model constructor, add it to the model cache and expose it as
+      // a service through the registered Angular injector.
       createModel( singular, plural, schema, parent ) {
 
         // Plural name, schema and parent are all optional. If the plural name
