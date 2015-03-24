@@ -14,6 +14,11 @@ angular.module('kudu')
       // Since the cache itself is 'private' the properties do not need to be
       // enumerable.
       add( Model ) {
+
+        if ( !Model.hasOwnProperty('singular') ) {
+          throw new Error('Invalid Kudu Model constructor');
+        }
+
         Object.defineProperty(cache, Model.singular, {
           value: Model,
         });

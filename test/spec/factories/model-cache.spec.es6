@@ -22,6 +22,11 @@ describe('KuduModelCache service', () => {
       let test = () => ModelCache.add(TestModel);
       expect(test).to.not.throw();
     });
+
+    it('should throw when attempting to add an invalid constructor', () => {
+      let test = () => ModelCache.add('invalid');
+      expect(test).to.throw(Error, /Invalid/);
+    });
   });
 
   it('should have a get method', () => {
