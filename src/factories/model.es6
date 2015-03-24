@@ -4,8 +4,26 @@ angular.module('kudu')
   'KuduBaseModel',
   'KuduModelCache',
 
-  ( BaseModel, ModelCache ) => class Constructor {
+  ( BaseModel, ModelCache ) => class KuduModel {
 
-    constructor( ToExtend ) {}
+    constructor( ToExtend, schema ) {
+
+      if ( ToExtend === undefined ) {
+        ToExtend = BaseModel;
+      }
+
+      class Constructor extends ToExtend {
+
+        static get schema() {
+          return schema;
+        }
+
+        constructor( data ) {
+          super(data);
+        }
+      }
+
+      return Constructor;
+    }
   }
 ]);
