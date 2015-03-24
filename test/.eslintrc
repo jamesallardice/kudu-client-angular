@@ -1,0 +1,9 @@
+{
+  "globals": {
+    "angular": false,
+    "describe": false,
+    "beforeEach": false,
+    "expect": false,
+    "it": false
+  }
+}

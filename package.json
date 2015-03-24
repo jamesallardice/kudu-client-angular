@@ -6,9 +6,15 @@
     "format": "global"
   },
   "scripts": {
-    "compile": "./bin/compile"
+    "compile": "./bin/compile",
+    "test": "karma start test/karma.conf.js"
   },
   "devDependencies": {
-    "babel": "^4.0.0"
+    "babel": "^4.0.0",
+    "karma": "^0.12.0",
+    "karma-babel-preprocessor": "^4.0.0",
+    "karma-chai-plugins": "^0.2.0",
+    "karma-mocha": "^0.1.0",
+    "karma-phantomjs-launcher": "^0.1.0"
   }
 }
