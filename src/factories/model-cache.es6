@@ -22,7 +22,7 @@ angular.module('kudu')
       // Return a model constructor from the cache by case-insensitive singular
       // model name.
       get( name ) {
-        return this.cache[ name.toLowerCase() ];
+        return cache[ name.toLowerCase() ];
       }
     };
   }() ),
