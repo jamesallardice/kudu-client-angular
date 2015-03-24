@@ -56,18 +56,22 @@ angular.module('kudu')
         // Add the constructor to the model cache
         ModelCache.add(Constructor);
 
-        // Create a factory for the constructor on the client Angular app
-        injector.invoke([
+        // If the service has been configured with an Angular injector we can
+        // create a factory for the constructor on the client Angular app.
+        if ( injector && typeof injector.invoke === 'function' ) {
 
-          '$provide',
+          injector.invoke([
 
-          ( $provide ) => {
+            '$provide',
 
-            $provide.factory(singular, [
-              () => Constructor,
-            ]);
-          },
-        ]);
+            ( $provide ) => {
+
+              $provide.factory(singular, [
+                () => Constructor,
+              ]);
+            },
+          ]);
+        }
 
         return Constructor;
       },
