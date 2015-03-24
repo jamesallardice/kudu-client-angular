@@ -20,7 +20,7 @@ angular.module('kudu')
       // A utility wrapper around KuduModelCache#get which allows consumers to
       // only inject the kudu service itself rather than the model cache too.
       getModel( name ) {
-        return ModelCache.get[ name ];
+        return ModelCache.get(name);
       },
 
       // Create a model constructor, add it to the model cache and expose it as

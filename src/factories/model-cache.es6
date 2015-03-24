@@ -3,31 +3,32 @@ angular.module('kudu')
 
   ( () => {
 
-    // The cache itself is 'private' and can only be accessed via the methods
-    // listed in the class definition below.
-    let cache = Object.create(null);
-
     return class KuduModelCache {
+
+      constructor() {
+        this.cache = Object.create(null);
+      }
 
       // Add a model constructor to the cache. The key is the singular name of
       // the model which is available as a static property of the constructor.
       // Since the cache itself is 'private' the properties do not need to be
-      // enumerable.
+      // enumerable, but they are configurable to allow overwriting.
       add( Model ) {
 
         if ( !Model.hasOwnProperty('singular') ) {
           throw new Error('Invalid Kudu Model constructor');
         }
 
-        Object.defineProperty(cache, Model.singular, {
+        Object.defineProperty(this.cache, Model.singular, {
           value: Model,
+          configurable: true,
         });
       }
 
       // Return a model constructor from the cache by case-insensitive singular
       // model name.
       get( name ) {
-        return cache[ name.toLowerCase() ];
+        return this.cache[ name.toLowerCase() ];
       }
     };
   }() ),
